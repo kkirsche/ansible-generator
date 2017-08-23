@@ -18,13 +18,18 @@ build-wheel: clean-build
 	pip install -U wheel
 	/usr/bin/env python setup.py bdist_wheel --universal
 
-wheel: build-wheel
+wheel: build-wheel build-readme
 
 build-rpm: clean-build
 	pip install -U wheel
 	/usr/bin/env python setup.py bdist --format=rpm
 
-release: build-wheel
+build-readme:
+	/usr/bin/env pandoc -s -r markdown -w rst README.md -o README.rst
+
+release: build-wheel build-readme
+
+wheel: build-wheel build-readme
 
 virtual-environment:
 	/usr/bin/env python -m virtualenv venv
