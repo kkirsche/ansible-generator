@@ -27,8 +27,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='1.0.1',
-
+    version='1.0.2',
     description='Generate ansible directory structures',
     long_description=long_description,
 
@@ -36,7 +35,8 @@ setup(
     url='https://github.com/kkirsche/ansible-generator',
 
     # Downloadable package
-    download_url='https://github.com/kkirsche/ansible-generator/archive/v1.0.1.tar.gz',
+    download_url=
+    'https://github.com/kkirsche/ansible-generator/archive/v1.0.2.tar.gz',
 
     # Author details
     author='Kevin Kirsche',
@@ -68,6 +68,7 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
 
     # What does your project relate to?
@@ -110,5 +111,4 @@ setup(
         'console_scripts': [
             'ansible-generate=ansible_generator:cli',
         ],
-    },
-)
+    },)

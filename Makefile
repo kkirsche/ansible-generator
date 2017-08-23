@@ -1,6 +1,5 @@
 clean-pyc:
 	find . -name '*.pyc' -delete
-	find . -name '*.py' -delete
 
 clean-build:
 	rm -rf build
