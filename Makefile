@@ -11,25 +11,23 @@ clean-virtual-environment:
 lint:
 	flake8 --exclude=.tox
 
-build-sdist: clean-build
-	/usr/bin/env python setup.py sdist
-
-build-wheel: clean-build
-	pip install -U wheel
-	/usr/bin/env python setup.py bdist_wheel --universal
-
-wheel: build-wheel build-readme
-
-build-rpm: clean-build
-	pip install -U wheel
-	/usr/bin/env python setup.py bdist --format=rpm
-
 build-readme:
 	/usr/bin/env pandoc -s -r markdown -w rst README.md -o README.rst
 
-release: build-wheel build-readme
+build-sdist: clean-build build-readme
+	/usr/bin/env python setup.py sdist
 
-wheel: build-wheel build-readme
+build-wheel: clean-build build-readme
+	pip install -U wheel
+	/usr/bin/env python setup.py bdist_wheel --universal
+
+build-rpm: clean-build build-readme
+	pip install -U wheel
+	/usr/bin/env python setup.py bdist --format=rpm
+
+release: build-wheel
+
+wheel: build-wheel
 
 virtual-environment:
 	/usr/bin/env python -m virtualenv venv
