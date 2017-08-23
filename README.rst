@@ -52,26 +52,28 @@ Help Text
 
 ::
 
-    usage: ansible-generate [-h] [-a] [-i INVENTORIES [INVENTORIES ...]] [-v]
-                            [projects [projects ...]]
+    usage: ansible-generate [-h] [-a] [-i INVENTORIES [INVENTORIES ...]]
+                            [-r ROLES [ROLES ...]] [-v]
+                            [-p PROJECTS [PROJECTS ...]]
 
     Generate an ansible playbook directory structure
-
-    positional arguments:
-      projects
 
     optional arguments:
       -h, --help            show this help message and exit
       -a, --alternate-layout
       -i INVENTORIES [INVENTORIES ...], --inventories INVENTORIES [INVENTORIES ...]
+      -r ROLES [ROLES ...], --roles ROLES [ROLES ...]
       -v, --verbose
+      -p PROJECTS [PROJECTS ...], --projects PROJECTS [PROJECTS ...]
 
 Defaults
 ^^^^^^^^
 
--  ``alternate-layout`` --- False
--  ``verbose`` --- False
--  ``inventories`` ``['production', 'staging']``
+-  ``alternate-layout`` --- ``False``
+-  ``verbose`` --- ``False``
+-  ``inventories`` --- ``['production', 'staging']``
+-  ``roles`` --- ``[]``
+-  ``projects`` --- ``[]``
 
 Example
 ~~~~~~~
@@ -88,36 +90,52 @@ New-project
 
 ::
 
-    ansible-generate playbook_name
+    ansible-generate -p playbook_name
 
 Alternate Layout
 ^^^^^^^^^^^^^^^^
 
 ::
 
-    ansible-generate -a playbook_name
+    ansible-generate -a
 
 Custom Inventories
 ^^^^^^^^^^^^^^^^^^
 
 ::
 
-    ansible-generate -i production staging lab -a test
+    ansible-generate -i production staging lab
+
+Roles
+^^^^^
+
+This portion of the tool relies on Ansible's ``ansible-galaxy`` command
+line application
+
+::
+
+    ansible-generate -r role1 role2
 
 Output
 ^^^^^^
 
 ::
 
-    ~/Downloads ❯❯❯ ansible-generate -i production staging lab -a test
-    creating directory /Users/example/Downloads/test/roles
-    creating directory /Users/example/Downloads/test/inventories/production/group_vars
-    creating directory /Users/example/Downloads/test/inventories/production/host_vars
-    creating directory /Users/example/Downloads/test/inventories/staging/group_vars
-    creating directory /Users/example/Downloads/test/inventories/staging/host_vars
-    creating directory /Users/example/Downloads/test/inventories/lab/group_vars
-    creating directory /Users/example/Downloads/test/inventories/lab/host_vars
-    creating file /Users/example/Downloads/test/inventories/production/hosts
-    creating file /Users/example/Downloads/test/inventories/staging/hosts
-    creating file /Users/example/Downloads/test/inventories/lab/hosts
-    creating file /Users/example/Downloads/test/site.yml
+    ~/Downloads ❯❯❯ ansible-generate -i production staging lab -r common ubuntu centos -a -p network_security_baseline
+    creating directory /Users/example_user/Downloads/network_security_baseline/roles
+    creating directory /Users/example_user/Downloads/network_security_baseline/inventories/production/group_vars
+    creating directory /Users/example_user/Downloads/network_security_baseline/inventories/production/host_vars
+    creating directory /Users/example_user/Downloads/network_security_baseline/inventories/staging/group_vars
+    creating directory /Users/example_user/Downloads/network_security_baseline/inventories/staging/host_vars
+    creating directory /Users/example_user/Downloads/network_security_baseline/inventories/lab/group_vars
+    creating directory /Users/example_user/Downloads/network_security_baseline/inventories/lab/host_vars
+    creating file /Users/example_user/Downloads/network_security_baseline/inventories/production/hosts
+    creating file /Users/example_user/Downloads/network_security_baseline/inventories/staging/hosts
+    creating file /Users/example_user/Downloads/network_security_baseline/inventories/lab/hosts
+    creating file /Users/example_user/Downloads/network_security_baseline/site.yml
+    ansible galaxy output for role common:
+    - common was created successfully
+    ansible galaxy output for role ubuntu:
+    - ubuntu was created successfully
+    ansible galaxy output for role centos:
+    - centos was created successfully

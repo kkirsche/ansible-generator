@@ -14,17 +14,23 @@ def cli():
         action=u'store_true',
         dest=u'alternate_layout')
     parser.add_argument(
-        '-i',
-        '--inventories',
+        u'-i',
+        u'--inventories',
         nargs='+',
-        default=['production', 'staging'],
+        default=[u'production', u'staging'],
         dest=u'inventories',
         type=str)
     parser.add_argument(
-        '-r', '--roles', nargs='+', default=[], dest=u'roles', type=str)
+        u'-r', u'--roles', nargs=u'+', default=[], dest=u'roles', type=str)
     parser.add_argument(
         '-v', '--verbose', action='store_true', dest='verbosity')
-    parser.add_argument(u'projects', nargs='*', default=None)
+    parser.add_argument(
+        u'-p',
+        u'--projects',
+        nargs=u'+',
+        default=[],
+        dest=u'projects',
+        type=str)
 
     args = parser.parse_args()
 

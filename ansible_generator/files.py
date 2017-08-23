@@ -47,11 +47,13 @@ def create_file_layout(projects=None,
         if not success:
             return False
 
-    for role in roles:
-        success = create_role(
-            rolename=role, directory='{project}/roles'.format(project=project))
-        if not success:
-            return False
+    for project in projects:
+        for role in roles:
+            success = create_role(
+                rolename=role,
+                directory='{project}/roles'.format(project=project))
+            if not success:
+                return False
     return True
 
 
@@ -99,6 +101,8 @@ def create_role(rolename, directory):
 
             stdout = stdoutf.read()
             stderr = stderrf.read()
+
+            print(u'ansible galaxy output for role {r}:'.format(r=rolename))
             if stdout:
                 print(stdout.strip())
             if stderr:
