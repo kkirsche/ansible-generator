@@ -6,11 +6,15 @@ from ansible_generator.utilities import join_cwd_and_directory_path
 # python stdlib
 from os import utime
 from logging import INFO
+from subprocess import Popen
+from tempfile import TemporaryFile
+from shlex import split
 
 
 def create_file_layout(projects=None,
                        inventories=[u'production', u'staging'],
                        alternate_layout=False,
+                       roles=[],
                        verbosity=INFO):
     logger = setup_logger(name=__name__, log_level=verbosity)
     minimum_paths = [u'site.yml']
@@ -42,6 +46,12 @@ def create_file_layout(projects=None,
         success = touch(logger=logger, filename=required_path)
         if not success:
             return False
+
+    for role in roles:
+        success = create_role(
+            rolename=role, directory='{project}/roles'.format(project=project))
+        if not success:
+            return False
     return True
 
 
@@ -66,3 +76,32 @@ def touch(logger, filename, times=None):
     except Exception:
         logger.error('failed to create file', exc_info=True)
         return False
+
+
+def create_role(rolename, directory):
+    with TemporaryFile() as stdoutf:
+        with TemporaryFile() as stderrf:
+            cmd = split(
+                '/usr/local/bin/ansible-galaxy init {r}'.format(r=rolename))
+            process = Popen(
+                cmd,
+                universal_newlines=True,
+                shell=False,
+                cwd=directory,
+                stdout=stdoutf,
+                stderr=stderrf)
+            process.wait()
+
+            stdoutf.flush()
+            stdoutf.seek(0)
+            stderrf.flush()
+            stderrf.seek(0)
+
+            stdout = stdoutf.read()
+            stderr = stderrf.read()
+            if stdout:
+                print(stdout.strip())
+            if stderr:
+                print(stderr.strip())
+                return False
+    return True

@@ -21,6 +21,8 @@ def cli():
         dest=u'inventories',
         type=str)
     parser.add_argument(
+        '-r', '--roles', nargs='+', default=[], dest=u'roles', type=str)
+    parser.add_argument(
         '-v', '--verbose', action='store_true', dest='verbosity')
     parser.add_argument(u'projects', nargs='*', default=None)
 
@@ -35,5 +37,6 @@ def cli():
         inventories=args.inventories,
         alternate_layout=args.alternate_layout,
         projects=args.projects,
+        roles=args.roles,
         verbosity=verbosity)
     generator.run()

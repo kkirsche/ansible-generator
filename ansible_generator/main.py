@@ -12,6 +12,7 @@ class AnsibleGenerator(object):
                  projects=None,
                  inventories=[u'production', u'staging'],
                  alternate_layout=False,
+                 roles=[],
                  verbosity=INFO):
         super(self.__class__, self).__init__()
         self.verbosity = verbosity
@@ -25,6 +26,7 @@ class AnsibleGenerator(object):
         self.projects = projects
         self.inventories = inventories
         self.alternate_layout = alternate_layout
+        self.roles = roles
 
     def run(self):
         self.logger.debug('msg="beginning create directory"')
@@ -37,4 +39,5 @@ class AnsibleGenerator(object):
                 projects=self.projects,
                 inventories=self.inventories,
                 alternate_layout=self.alternate_layout,
+                roles=self.roles,
                 verbosity=self.verbosity)
