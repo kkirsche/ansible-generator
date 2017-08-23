@@ -102,7 +102,7 @@ def create_role(rolename, directory):
             stdout = stdoutf.read()
             stderr = stderrf.read()
 
-            print(u'ansible galaxy output for role {r}:'.format(r=rolename))
+            print(u'ansible-galaxy output for role {r}:'.format(r=rolename))
             if stdout:
                 print(stdout.strip())
             if stderr:
