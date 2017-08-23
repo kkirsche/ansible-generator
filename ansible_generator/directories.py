@@ -89,7 +89,7 @@ def get_alternate_inventories_directory_paths(logger, inventories):
         inventory names.
     """
     logger.debug(u'msg="building alternate inventory layout directory paths"')
-    inventory_paths = []
+    inventory_paths = [u'roles']
     for inventory in inventories:
         inventory_paths.append(
             u'inventories/{inventory}/group_vars'.format(inventory=inventory))
