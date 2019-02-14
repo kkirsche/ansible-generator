@@ -20,9 +20,7 @@ def cli():
         dest="inventories",
         type=str,
     )
-    parser.add_argument(
-        "-r", "--roles", nargs="+", default=[], dest="roles", type=str
-    )
+    parser.add_argument("-r", "--roles", nargs="+", default=[], dest="roles", type=str)
     parser.add_argument("-v", "--verbose", action="store_true", dest="verbosity")
     parser.add_argument(
         "-p", "--projects", nargs="+", default=[], dest="projects", type=str

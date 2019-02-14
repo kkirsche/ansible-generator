@@ -109,8 +109,8 @@ def create_role(rolename, directory):
             stderrf.flush()
             stderrf.seek(0)
 
-            stdout = stdoutf.read().decode('utf-8')
-            stderr = stderrf.read().decode('utf-8')
+            stdout = stdoutf.read().decode("utf-8")
+            stderr = stderrf.read().decode("utf-8")
 
             print("ansible-galaxy output for role {r}:".format(r=rolename))
             if stdout:

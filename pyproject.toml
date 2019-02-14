@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ansible-generator"
-version = "1.1.0"
+version = "2.0.0"
 description = "Ansible project generation tool"
 authors = ["Kevin Kirsche <kev.kirsche@gmail.com>"]
 license = "BSD-3-Clause"
