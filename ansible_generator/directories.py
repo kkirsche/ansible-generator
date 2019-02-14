@@ -9,10 +9,12 @@ from os import makedirs
 from logging import INFO
 
 
-def create_directory_layout(projects=None,
-                            inventories=[u'production', u'staging'],
-                            alternate_layout=False,
-                            verbosity=INFO):
+def create_directory_layout(
+    projects=None,
+    inventories=[u"production", u"staging"],
+    alternate_layout=False,
+    verbosity=INFO,
+):
     u"""Creates the directory layout.
 
     Args:
@@ -26,25 +28,31 @@ def create_directory_layout(projects=None,
     logger = setup_logger(name=__name__, log_level=verbosity)
     if alternate_layout:
         required_paths = get_alternate_inventories_directory_paths(
-            logger=logger, inventories=inventories)
+            logger=logger, inventories=inventories
+        )
     else:
-        required_paths = [u'group_vars', u'host_vars', u'roles']
+        required_paths = [u"group_vars", u"host_vars", u"roles"]
 
-    logger.debug('msg="{n} required directories" directories="{p}"'.format(
-        n=len(required_paths), p=required_paths))
+    logger.debug(
+        'msg="{n} required directories" directories="{p}"'.format(
+            n=len(required_paths), p=required_paths
+        )
+    )
     if projects:
-        logger.debug(
-            'msg="projects was defined" projects="{p}"'.format(p=projects))
+        logger.debug('msg="projects was defined" projects="{p}"'.format(p=projects))
 
         final_paths = []
         for project in projects:
             final_paths += [
-                u'{project}/{path}'.format(project=project, path=required_path)
+                u"{project}/{path}".format(project=project, path=required_path)
                 for required_path in required_paths
             ]
         required_paths = final_paths
-        logger.debug('msg="{n} project required directories" directories="{p}"'.
-                     format(n=len(required_paths), p=required_paths))
+        logger.debug(
+            'msg="{n} project required directories" directories="{p}"'.format(
+                n=len(required_paths), p=required_paths
+            )
+        )
 
     required_paths = map(join_cwd_and_directory_path, required_paths)
 
@@ -67,14 +75,13 @@ def create_directory(logger, dir_path):
     """
     if not exists(path=dir_path):
         try:
-            logger.info('creating directory {dir}'.format(dir=dir_path))
+            logger.info("creating directory {dir}".format(dir=dir_path))
             makedirs(dir_path)
         except Exception:
-            logger.error(
-                'failed to create {dir}'.format(dir=dir_path), exc_info=True)
+            logger.error("failed to create {dir}".format(dir=dir_path), exc_info=True)
             return False
     else:
-        logger.info('directory {dir} exists'.format(dir=dir_path))
+        logger.info("directory {dir} exists".format(dir=dir_path))
     return True
 
 
@@ -89,10 +96,12 @@ def get_alternate_inventories_directory_paths(logger, inventories):
         inventory names.
     """
     logger.debug(u'msg="building alternate inventory layout directory paths"')
-    inventory_paths = [u'roles']
+    inventory_paths = [u"roles"]
     for inventory in inventories:
         inventory_paths.append(
-            u'inventories/{inventory}/group_vars'.format(inventory=inventory))
+            u"inventories/{inventory}/group_vars".format(inventory=inventory)
+        )
         inventory_paths.append(
-            u'inventories/{inventory}/host_vars'.format(inventory=inventory))
+            u"inventories/{inventory}/host_vars".format(inventory=inventory)
+        )
     return inventory_paths

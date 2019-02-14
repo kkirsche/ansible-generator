@@ -6,31 +6,27 @@ from logging import DEBUG, INFO
 
 def cli():
     parser = ArgumentParser(
-        description=u'Generate an ansible playbook directory structure')
+        description=u"Generate an ansible playbook directory structure"
+    )
 
     parser.add_argument(
-        u'-a',
-        u'--alternate-layout',
-        action=u'store_true',
-        dest=u'alternate_layout')
+        u"-a", u"--alternate-layout", action=u"store_true", dest=u"alternate_layout"
+    )
     parser.add_argument(
-        u'-i',
-        u'--inventories',
-        nargs='+',
-        default=[u'production', u'staging'],
-        dest=u'inventories',
-        type=str)
+        u"-i",
+        u"--inventories",
+        nargs="+",
+        default=[u"production", u"staging"],
+        dest=u"inventories",
+        type=str,
+    )
     parser.add_argument(
-        u'-r', u'--roles', nargs=u'+', default=[], dest=u'roles', type=str)
+        u"-r", u"--roles", nargs=u"+", default=[], dest=u"roles", type=str
+    )
+    parser.add_argument("-v", "--verbose", action="store_true", dest="verbosity")
     parser.add_argument(
-        '-v', '--verbose', action='store_true', dest='verbosity')
-    parser.add_argument(
-        u'-p',
-        u'--projects',
-        nargs=u'+',
-        default=[],
-        dest=u'projects',
-        type=str)
+        u"-p", u"--projects", nargs=u"+", default=[], dest=u"projects", type=str
+    )
 
     args = parser.parse_args()
 
@@ -44,5 +40,6 @@ def cli():
         alternate_layout=args.alternate_layout,
         projects=args.projects,
         roles=args.roles,
-        verbosity=verbosity)
+        verbosity=verbosity,
+    )
     generator.run()

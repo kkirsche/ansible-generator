@@ -7,22 +7,23 @@ from logging import INFO
 
 
 class AnsibleGenerator(object):
-
-    def __init__(self,
-                 projects=None,
-                 inventories=[u'production', u'staging'],
-                 alternate_layout=False,
-                 roles=[],
-                 verbosity=INFO):
+    def __init__(
+        self,
+        projects=None,
+        inventories=[u"production", u"staging"],
+        alternate_layout=False,
+        roles=[],
+        verbosity=INFO,
+    ):
         super(self.__class__, self).__init__()
         self.verbosity = verbosity
         self.logger = setup_logger(name=__name__, log_level=self.verbosity)
         self.logger.debug(
-            (u'msg="initializing generator" inventories="{inv}" '
-             u'alternate_layout="{alt}" projects="{proj}"').format(
-                 inv=inventories,
-                 alt=alternate_layout,
-                 proj=', '.join(projects)))
+            (
+                u'msg="initializing generator" inventories="{inv}" '
+                u'alternate_layout="{alt}" projects="{proj}"'
+            ).format(inv=inventories, alt=alternate_layout, proj=", ".join(projects))
+        )
         self.projects = projects
         self.inventories = inventories
         self.alternate_layout = alternate_layout
@@ -31,13 +32,15 @@ class AnsibleGenerator(object):
     def run(self):
         self.logger.debug('msg="beginning create directory"')
         if create_directory_layout(
-                projects=self.projects,
-                inventories=self.inventories,
-                alternate_layout=self.alternate_layout,
-                verbosity=self.verbosity):
+            projects=self.projects,
+            inventories=self.inventories,
+            alternate_layout=self.alternate_layout,
+            verbosity=self.verbosity,
+        ):
             create_file_layout(
                 projects=self.projects,
                 inventories=self.inventories,
                 alternate_layout=self.alternate_layout,
                 roles=self.roles,
-                verbosity=self.verbosity)
+                verbosity=self.verbosity,
+            )

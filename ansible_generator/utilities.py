@@ -6,8 +6,9 @@ from os import getcwd
 
 logger = setup_logger(name=__name__)
 
+
 def join_cwd_and_directory_path(dir_path):
-    logger.debug(u'joining paths')
+    logger.debug(u"joining paths")
     cwd = getcwd()
     joined_path = join(cwd, dir_path)
     return joined_path
