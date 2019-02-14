@@ -1,9 +1,19 @@
 [tool.poetry]
 name = "ansible-generator"
 version = "1.1.0"
-description = ""
+description = "Ansible project generation tool"
 authors = ["Kevin Kirsche <kev.kirsche@gmail.com>"]
 license = "BSD-3-Clause"
+readme = "README.md"
+
+repository = "https://github.com/kkirsche/ansible-generator"
+keywords = ["development", "ansible", "generator"]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Build Tools",
+	"Development Status :: 5 - Production/Stable"
+]
+
 
 [tool.poetry.dependencies]
 python = "^3.3"
@@ -20,3 +30,6 @@ black = { version = "^18.3-alpha.0", python = "^3.6" }
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+[tool.poetry.scripts]
+ansible-generate = "ansible_generator:cli"
