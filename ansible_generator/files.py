@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-u"""files is used to generate the necessary file."""
+"""files is used to generate the necessary file."""
 from ansible_generator.log import setup_logger
 from ansible_generator.utilities import join_cwd_and_directory_path
 
@@ -13,13 +13,13 @@ from shlex import split
 
 def create_file_layout(
     projects=None,
-    inventories=[u"production", u"staging"],
+    inventories=["production", "staging"],
     alternate_layout=False,
     roles=[],
     verbosity=INFO,
 ):
     logger = setup_logger(name=__name__, log_level=verbosity)
-    minimum_paths = [u"site.yml"]
+    minimum_paths = ["site.yml"]
     if alternate_layout:
         required_paths = (
             get_alternate_inventories_file_paths(logger=logger, inventories=inventories)
@@ -40,7 +40,7 @@ def create_file_layout(
         final_paths = []
         for project in projects:
             final_paths += [
-                u"{project}/{path}".format(project=project, path=required_path)
+                "{project}/{path}".format(project=project, path=required_path)
                 for required_path in required_paths
             ]
         required_paths = final_paths
@@ -67,11 +67,11 @@ def create_file_layout(
 
 
 def get_alternate_inventories_file_paths(logger, inventories):
-    logger.debug(u"building alternate inventory layout file paths")
+    logger.debug("building alternate inventory layout file paths")
     inventory_paths = []
     for inventory in inventories:
         inventory_paths.append(
-            u"inventories/{inventory}/hosts".format(inventory=inventory)
+            "inventories/{inventory}/hosts".format(inventory=inventory)
         )
     return inventory_paths
 
@@ -109,10 +109,10 @@ def create_role(rolename, directory):
             stderrf.flush()
             stderrf.seek(0)
 
-            stdout = stdoutf.read()
-            stderr = stderrf.read()
+            stdout = stdoutf.read().decode('utf-8')
+            stderr = stderrf.read().decode('utf-8')
 
-            print(u"ansible-galaxy output for role {r}:".format(r=rolename))
+            print("ansible-galaxy output for role {r}:".format(r=rolename))
             if stdout:
                 print(stdout.strip())
             if stderr:

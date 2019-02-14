@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-u"""directories is used to generate the necessary directory structures."""
+"""directories is used to generate the necessary directory structures."""
 from ansible_generator.log import setup_logger
 from ansible_generator.utilities import join_cwd_and_directory_path
 
@@ -11,11 +11,11 @@ from logging import INFO
 
 def create_directory_layout(
     projects=None,
-    inventories=[u"production", u"staging"],
+    inventories=["production", "staging"],
     alternate_layout=False,
     verbosity=INFO,
 ):
-    u"""Creates the directory layout.
+    """Creates the directory layout.
 
     Args:
         inventories: Array of strings noting the names of the inventories.
@@ -31,7 +31,7 @@ def create_directory_layout(
             logger=logger, inventories=inventories
         )
     else:
-        required_paths = [u"group_vars", u"host_vars", u"roles"]
+        required_paths = ["group_vars", "host_vars", "roles"]
 
     logger.debug(
         'msg="{n} required directories" directories="{p}"'.format(
@@ -44,7 +44,7 @@ def create_directory_layout(
         final_paths = []
         for project in projects:
             final_paths += [
-                u"{project}/{path}".format(project=project, path=required_path)
+                "{project}/{path}".format(project=project, path=required_path)
                 for required_path in required_paths
             ]
         required_paths = final_paths
@@ -65,7 +65,7 @@ def create_directory_layout(
 
 
 def create_directory(logger, dir_path):
-    u"""Recursively creates a directory path if does not exist.
+    """Recursively creates a directory path if does not exist.
 
     Args:
         dir_path: The path to the directory that we would like created.
@@ -86,7 +86,7 @@ def create_directory(logger, dir_path):
 
 
 def get_alternate_inventories_directory_paths(logger, inventories):
-    u"""
+    """
 
     Args:
          inventories: An array of string inventory names
@@ -95,13 +95,13 @@ def get_alternate_inventories_directory_paths(logger, inventories):
         An array of directories that are required based on the provided
         inventory names.
     """
-    logger.debug(u'msg="building alternate inventory layout directory paths"')
-    inventory_paths = [u"roles"]
+    logger.debug('msg="building alternate inventory layout directory paths"')
+    inventory_paths = ["roles"]
     for inventory in inventories:
         inventory_paths.append(
-            u"inventories/{inventory}/group_vars".format(inventory=inventory)
+            "inventories/{inventory}/group_vars".format(inventory=inventory)
         )
         inventory_paths.append(
-            u"inventories/{inventory}/host_vars".format(inventory=inventory)
+            "inventories/{inventory}/host_vars".format(inventory=inventory)
         )
     return inventory_paths

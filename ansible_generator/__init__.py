@@ -6,26 +6,26 @@ from logging import DEBUG, INFO
 
 def cli():
     parser = ArgumentParser(
-        description=u"Generate an ansible playbook directory structure"
+        description="Generate an ansible playbook directory structure"
     )
 
     parser.add_argument(
-        u"-a", u"--alternate-layout", action=u"store_true", dest=u"alternate_layout"
+        "-a", "--alternate-layout", action="store_true", dest="alternate_layout"
     )
     parser.add_argument(
-        u"-i",
-        u"--inventories",
+        "-i",
+        "--inventories",
         nargs="+",
-        default=[u"production", u"staging"],
-        dest=u"inventories",
+        default=["production", "staging"],
+        dest="inventories",
         type=str,
     )
     parser.add_argument(
-        u"-r", u"--roles", nargs=u"+", default=[], dest=u"roles", type=str
+        "-r", "--roles", nargs="+", default=[], dest="roles", type=str
     )
     parser.add_argument("-v", "--verbose", action="store_true", dest="verbosity")
     parser.add_argument(
-        u"-p", u"--projects", nargs=u"+", default=[], dest=u"projects", type=str
+        "-p", "--projects", nargs="+", default=[], dest="projects", type=str
     )
 
     args = parser.parse_args()

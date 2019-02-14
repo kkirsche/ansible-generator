@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-u"""main defines the entrypoint into the application."""
+"""main defines the entrypoint into the application."""
 from ansible_generator.files import create_file_layout
 from ansible_generator.directories import create_directory_layout
 from ansible_generator.log import setup_logger
@@ -10,7 +10,7 @@ class AnsibleGenerator(object):
     def __init__(
         self,
         projects=None,
-        inventories=[u"production", u"staging"],
+        inventories=["production", "staging"],
         alternate_layout=False,
         roles=[],
         verbosity=INFO,
@@ -20,8 +20,8 @@ class AnsibleGenerator(object):
         self.logger = setup_logger(name=__name__, log_level=self.verbosity)
         self.logger.debug(
             (
-                u'msg="initializing generator" inventories="{inv}" '
-                u'alternate_layout="{alt}" projects="{proj}"'
+                'msg="initializing generator" inventories="{inv}" '
+                'alternate_layout="{alt}" projects="{proj}"'
             ).format(inv=inventories, alt=alternate_layout, proj=", ".join(projects))
         )
         self.projects = projects
