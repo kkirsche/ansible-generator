@@ -9,6 +9,7 @@ from logging import INFO
 from subprocess import Popen
 from tempfile import TemporaryFile
 from shlex import split
+from shutil import which
 
 
 def create_file_layout(
@@ -93,7 +94,8 @@ def touch(logger, filename, times=None):
 def create_role(rolename, directory):
     with TemporaryFile() as stdoutf:
         with TemporaryFile() as stderrf:
-            cmd = split("/usr/local/bin/ansible-galaxy init {r}".format(r=rolename))
+            galaxy_executable = which('ansible-galaxy')
+            cmd = split("{ge} init {r}".format(ge=galaxy_executable, r=rolename))
             process = Popen(
                 cmd,
                 universal_newlines=True,
