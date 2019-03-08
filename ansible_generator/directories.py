@@ -35,11 +35,11 @@ def create_directory_layout(
 
     logger.debug(
         'msg="{n} required directories" directories="{p}"'.format(
-            n=len(required_paths), p=required_paths
+            n=len(required_paths), p=', '.join(required_paths)
         )
     )
     if projects:
-        logger.debug('msg="projects was defined" projects="{p}"'.format(p=projects))
+        logger.debug('msg="projects was defined" projects="{p}"'.format(p=', '.join(projects)))
 
         final_paths = []
         for project in projects:
@@ -50,7 +50,7 @@ def create_directory_layout(
         required_paths = final_paths
         logger.debug(
             'msg="{n} project required directories" directories="{p}"'.format(
-                n=len(required_paths), p=required_paths
+                n=len(required_paths), p=', '.join(required_paths)
             )
         )
 
