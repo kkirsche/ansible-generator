@@ -94,7 +94,12 @@ def touch(logger, filename, times=None):
 def create_role(rolename, directory):
     with TemporaryFile() as stdoutf:
         with TemporaryFile() as stderrf:
-            galaxy_executable = which('ansible-galaxy')
+            galaxy_executable = which("ansible-galaxy")
+            if galaxy_executable is None:
+                logger.critical(
+                    "ansible-galaxy executable was not found in your path, skipping role creation"
+                )
+                return False
             cmd = split("{ge} init {r}".format(ge=galaxy_executable, r=rolename))
             process = Popen(
                 cmd,
