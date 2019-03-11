@@ -2,11 +2,13 @@
 from ansible_generator.main import AnsibleGenerator
 from argparse import ArgumentParser
 from logging import DEBUG, INFO
+from pkg_resources import get_distribution
 
 
 def cli():
     parser = ArgumentParser(
-        description="Generate an ansible playbook directory structure"
+        prog="ansible-generate",
+        description="Generate an ansible playbook directory structure",
     )
 
     parser.add_argument(
@@ -24,6 +26,11 @@ def cli():
     parser.add_argument("-v", "--verbose", action="store_true", dest="verbosity")
     parser.add_argument(
         "-p", "--projects", nargs="+", default=[], dest="projects", type=str
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version="%(prog)s {v}".format(v=get_distribution("ansible-generator").version),
     )
 
     args = parser.parse_args()

@@ -60,7 +60,9 @@ def create_file_layout(
     for project in projects:
         for role in roles:
             success = create_role(
-                rolename=role, directory="{project}/roles".format(project=project)
+                rolename=role,
+                directory="{project}/roles".format(project=project),
+                logger=logger,
             )
             if not success:
                 return False
@@ -91,13 +93,16 @@ def touch(logger, filename, times=None):
         return False
 
 
-def create_role(rolename, directory):
+def create_role(rolename, directory, logger):
     with TemporaryFile() as stdoutf:
         with TemporaryFile() as stderrf:
             galaxy_executable = which("ansible-galaxy")
             if galaxy_executable is None:
                 logger.critical(
-                    "ansible-galaxy executable was not found in your path, skipping role creation"
+                    (
+                        "ansible-galaxy executable was not found in your path, "
+                        "skipping role creation"
+                    )
                 )
                 return False
             cmd = split("{ge} init {r}".format(ge=galaxy_executable, r=rolename))

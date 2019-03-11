@@ -38,7 +38,7 @@ pip install -U dist/*.whl
 ```
 usage: ansible-generate [-h] [-a] [-i INVENTORIES [INVENTORIES ...]]
                         [-r ROLES [ROLES ...]] [-v]
-                        [-p PROJECTS [PROJECTS ...]]
+                        [-p PROJECTS [PROJECTS ...]] [--version]
 
 Generate an ansible playbook directory structure
 
@@ -49,6 +49,7 @@ optional arguments:
   -r ROLES [ROLES ...], --roles ROLES [ROLES ...]
   -v, --verbose
   -p PROJECTS [PROJECTS ...], --projects PROJECTS [PROJECTS ...]
+  --version             show program's version number and exit
 ```
 
 #### Defaults
