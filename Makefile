@@ -16,7 +16,7 @@ build-sdist: clean-build
 
 build-wheel: clean-build
 	/usr/bin/env python3 -m pip install -U wheel
-	/usr/bin/env python3 setup.py bdist_wheel --universal
+	/usr/bin/env python3 setup.py bdist_wheel
 
 build-rpm: clean-build
 	/usr/bin/env python3 -m pip install -U wheel
