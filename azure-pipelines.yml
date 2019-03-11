@@ -31,10 +31,12 @@ jobs:
     displayName: 'Install dependencies'
 
   - script: |
+      pip install -U pytest
       pytest tests -vv --strict --doctest-modules --junitxml=junit/test-results.xml
     displayName: 'pytest'
 
   - script: |
+      pip install -U flake8
       flake8 --config=./.flake8 -v --statistics --count
     displayName: 'flake8'
 
