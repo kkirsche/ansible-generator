@@ -25,14 +25,14 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version="2.1.2",
+    version="2.1.3",
     description="Generate ansible directory structures",
     long_description=long_description,
     long_description_content_type="text/markdown",
     # The project's main homepage.
     url="https://github.com/kkirsche/ansible-generator",
     # Downloadable package
-    download_url="https://github.com/kkirsche/ansible-generator/archive/v2.1.1.tar.gz",
+    download_url="https://github.com/kkirsche/ansible-generator/archive/v2.1.3.tar.gz",
     # Author details
     author="Kevin Kirsche",
     author_email="kev.kirsche@gmail.com",
