@@ -21,6 +21,10 @@ def create_file_layout(
 ):
     logger = setup_logger(name=__name__, log_level=verbosity)
     minimum_paths = ["site.yml"]
+
+    for itemNum, inventory in enumerate(inventories):
+        inventories[itemNum] = inventory.split('/')[-1]
+
     if alternate_layout:
         required_paths = (
             get_alternate_inventories_file_paths(logger=logger, inventories=inventories)

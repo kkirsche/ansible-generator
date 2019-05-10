@@ -26,6 +26,9 @@ def create_directory_layout(
         A boolean to say that it succeeded or failed.
     """
     logger = setup_logger(name=__name__, log_level=verbosity)
+    for itemNum, inventory in enumerate(inventories):
+        inventories[itemNum] = inventory.split('/')[-1]
+
     if alternate_layout:
         required_paths = get_alternate_inventories_directory_paths(
             logger=logger, inventories=inventories
