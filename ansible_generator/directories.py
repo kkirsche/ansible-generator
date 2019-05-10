@@ -27,7 +27,13 @@ def create_directory_layout(
     """
     logger = setup_logger(name=__name__, log_level=verbosity)
     for itemNum, inventory in enumerate(inventories):
-        inventories[itemNum] = inventory.split('/')[-1]
+        inventories[itemNum] = inventory.split("/")[-1]
+        if inventory == ".":
+            inventories[itemNum] = "dot"
+        if inventory == "..":
+            inventories[itemNum] = "dotdot"
+        if inventory == "*":
+            inventories[itemNum] = "star"
 
     if alternate_layout:
         required_paths = get_alternate_inventories_directory_paths(
@@ -82,6 +88,14 @@ def create_directory(logger, dir_path):
         try:
             logger.info("creating directory {dir}".format(dir=dir_path))
             makedirs(dir_path)
+        except PermissionError:
+            logger.error(
+                (
+                    "PermissionError: failed to create {dir}\n"
+                    "Try using sudo to fix the issue 😃"
+                ).format(dir=dir_path)
+            )
+            return False
         except Exception:
             logger.error("failed to create {dir}".format(dir=dir_path), exc_info=True)
             return False

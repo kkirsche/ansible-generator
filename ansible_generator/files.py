@@ -23,7 +23,13 @@ def create_file_layout(
     minimum_paths = ["site.yml"]
 
     for itemNum, inventory in enumerate(inventories):
-        inventories[itemNum] = inventory.split('/')[-1]
+        inventories[itemNum] = inventory.split("/")[-1]
+        if inventory == ".":
+            inventories[itemNum] = "dot"
+        if inventory == "..":
+            inventories[itemNum] = "dotdot"
+        if inventory == "*":
+            inventories[itemNum] = "star"
 
     if alternate_layout:
         required_paths = (

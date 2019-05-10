@@ -23,7 +23,9 @@ def cli():
             dest="inventories",
             type=str,
         )
-        parser.add_argument("-r", "--roles", nargs="+", default=[], dest="roles", type=str)
+        parser.add_argument(
+            "-r", "--roles", nargs="+", default=[], dest="roles", type=str
+        )
         parser.add_argument("-v", "--verbose", action="store_true", dest="verbosity")
         parser.add_argument(
             "-p", "--projects", nargs="+", default=[], dest="projects", type=str
@@ -31,7 +33,9 @@ def cli():
         parser.add_argument(
             "--version",
             action="version",
-            version="%(prog)s {v}".format(v=get_distribution("ansible-generator").version),
+            version="%(prog)s {v}".format(
+                v=get_distribution("ansible-generator").version
+            ),
         )
 
         args = parser.parse_args()
@@ -50,4 +54,4 @@ def cli():
         )
         generator.run()
     except KeyboardInterrupt:
-        print('Interrupt detected, exiting...')
+        print("Interrupt detected, exiting...")
