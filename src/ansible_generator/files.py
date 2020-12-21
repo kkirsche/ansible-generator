@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 """files is used to generate the necessary file."""
-from ansible_generator.log import setup_logger
-from ansible_generator.utilities import join_cwd_and_directory_path
+from logging import INFO
 
 # python stdlib
 from os import utime
-from logging import INFO
-from subprocess import Popen
-from tempfile import TemporaryFile
 from shlex import split
 from shutil import which
+from subprocess import Popen
+from tempfile import TemporaryFile
+
+from ansible_generator.log import setup_logger
+from ansible_generator.utilities import join_cwd_and_directory_path
 
 
 def create_file_layout(

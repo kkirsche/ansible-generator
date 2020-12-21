@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """directories is used to generate the necessary directory structures."""
-from ansible_generator.log import setup_logger
-from ansible_generator.utilities import join_cwd_and_directory_path
+from logging import INFO
+from os import makedirs
 
 # python stdlib
 from os.path import exists
-from os import makedirs
-from logging import INFO
+
+from ansible_generator.log import setup_logger
+from ansible_generator.utilities import join_cwd_and_directory_path
 
 
 def create_directory_layout(

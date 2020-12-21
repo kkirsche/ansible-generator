@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from ansible_generator.main import AnsibleGenerator
 from argparse import ArgumentParser
 from logging import DEBUG, INFO
+
 from pkg_resources import get_distribution
+
+from ansible_generator.main import AnsibleGenerator
 
 
 def cli():

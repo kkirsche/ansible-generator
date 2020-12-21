@@ -25,14 +25,17 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version="2.1.4",
+    use_scm_version={
+        "write_to": "src/ansible_generator/version.py"
+    },
+    setup_requires=['setuptools_scm'],
     description="Generate ansible directory structures",
     long_description=long_description,
     long_description_content_type="text/markdown",
     # The project's main homepage.
     url="https://github.com/kkirsche/ansible-generator",
     # Downloadable package
-    download_url="https://github.com/kkirsche/ansible-generator/archive/v2.1.3.tar.gz",
+    download_url="https://github.com/kkirsche/ansible-generator/archive/v3.0.0.tar.gz",
     # Author details
     author="Kevin Kirsche",
     author_email="kev.kirsche@gmail.com",
@@ -53,26 +56,30 @@ setup(
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
     # What does your project relate to?
     keywords="development ansible generator devops",
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
-    packages=find_packages(exclude=["contrib", "docs", "tests"]),
+    package_dir={'': 'src'},
+    packages=find_packages(where="src", exclude=["contrib", "docs", "tests"]),
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=["setuptools", "sentry-sdk", "ansible"],
-    python_requires=">=3.5",
+    install_requires=["sentry-sdk"],
+    python_requires=">=3.6, <4",
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
     # for example:
     # $ pip install -e .[dev,test]
     extras_require={
-        "dev": ["check-manifest", "black"],
+        "dev": ["check-manifest", "black", 'mypy', 'isort', 'interrogate', 'codespell', 'bandit'],
         "test": ["coverage", "pytest", "black", "flake8", "safety", "bandit"],
     },
     # If there are data files included in your packages that need to be

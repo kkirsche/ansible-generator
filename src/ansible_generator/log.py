@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """Create a logger instance """
 # third party packages
-from sentry_sdk import init
-from sentry_sdk.integrations.logging import LoggingIntegration
+from logging import ERROR, INFO, basicConfig, getLogger
 
 # python stdlib
 from pkg_resources import get_distribution
-from logging import ERROR, INFO, basicConfig, getLogger
+from sentry_sdk import init
+from sentry_sdk.integrations.logging import LoggingIntegration
 
 
 def configure_sentry():

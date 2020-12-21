@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """main defines the entrypoint into the application."""
-from ansible_generator.files import create_file_layout
-from ansible_generator.directories import create_directory_layout
-from ansible_generator.log import setup_logger
 from logging import INFO
+
+from ansible_generator.directories import create_directory_layout
+from ansible_generator.files import create_file_layout
+from ansible_generator.log import setup_logger
 
 
 class AnsibleGenerator(object):

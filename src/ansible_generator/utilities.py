@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """utilities are functions that need to be used by multiple files."""
-from ansible_generator.log import setup_logger
-from os.path import join
 from os import getcwd
+from os.path import join
+
+from ansible_generator.log import setup_logger
 
 logger = setup_logger(name=__name__)
 
