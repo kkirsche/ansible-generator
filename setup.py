@@ -9,33 +9,30 @@ http://docs.ansible.com/ansible/latest/playbooks_best_practices.html#directory-l
 http://docs.ansible.com/ansible/latest/playbooks_best_practices.html#alternative-directory-layout
 """
 
+import pathlib
+
 # Always prefer setuptools over distutils
-from setuptools import setup, find_packages
-from os import path
+from setuptools import find_packages, setup
 
-
-here = path.abspath(path.dirname(__file__))
+here = pathlib.Path(__file__).parent.resolve()
 
 # Get the long description from the README file
-with open(path.join(here, "README.md"), encoding="utf-8") as f:
-    long_description = f.read()
+long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="ansible-generator",
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    use_scm_version={
-        "write_to": "src/ansible_generator/version.py"
-    },
-    setup_requires=['setuptools_scm'],
+    use_scm_version={"write_to": "src/ansible_generator/core/version.py"},
+    setup_requires=["setuptools_scm"],
     description="Generate ansible directory structures",
     long_description=long_description,
     long_description_content_type="text/markdown",
     # The project's main homepage.
     url="https://github.com/kkirsche/ansible-generator",
     # Downloadable package
-    download_url="https://github.com/kkirsche/ansible-generator/archive/v3.0.0.tar.gz",
+    download_url="https://github.com/kkirsche/ansible-generator/releases",
     # Author details
     author="Kevin Kirsche",
     author_email="kev.kirsche@gmail.com",
@@ -57,29 +54,41 @@ setup(
         # that you indicate whether you support Python 2, Python 3 or both.
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
-    # What does your project relate to?
-    keywords="development ansible generator devops",
+    # This field adds keywords for your project which will appear on the
+    # project page. What does your project relate to?
+    #
+    # Note that this is a list of additional keywords, separated
+    # by commas, to be used to assist searching for the distribution in a
+    # larger catalog.
+    keywords="development, ansible, generator, devops",
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
-    package_dir={'': 'src'},
+    package_dir={"": "src"},
     packages=find_packages(where="src", exclude=["contrib", "docs", "tests"]),
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=["sentry-sdk"],
-    python_requires=">=3.6, <4",
+    install_requires=["sentry-sdk", "structlog", "python-json-logger"],
+    python_requires=">=3.7, <4",
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
     # for example:
     # $ pip install -e .[dev,test]
     extras_require={
-        "dev": ["check-manifest", "black", 'mypy', 'isort', 'interrogate', 'codespell', 'bandit'],
+        "dev": [
+            "check-manifest",
+            "black",
+            "mypy",
+            "isort",
+            "interrogate",
+            "codespell",
+            "bandit",
+        ],
         "test": ["coverage", "pytest", "black", "flake8", "safety", "bandit"],
     },
     # If there are data files included in your packages that need to be
@@ -94,7 +103,7 @@ setup(
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
     # pip to create the appropriate form of executable for the target platform.
-    entry_points={"console_scripts": ["ansible-generate=ansible_generator:cli"]},
+    entry_points={"console_scripts": ["ansible-generate=ansible_generator.cli:main"]},
     project_urls={
         "Bug Reports": "https://github.com/kkirsche/ansible-generator/issues",
         "Source": "https://github.com/kkirsche/ansible-generator",
