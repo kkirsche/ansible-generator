@@ -1,7 +1,6 @@
+from logging import getLogger
 from pathlib import Path
-from typing import List
-
-from structlog import get_logger
+from typing import Any, List
 
 from ansible_generator.directory_generator.strategy import DirectoryStrategy
 
@@ -9,9 +8,12 @@ from ansible_generator.directory_generator.strategy import DirectoryStrategy
 class DirectoryGenerator:
     """The DirectoryGenerator defines the interface to clients."""
 
-    def __init__(self, strategy: DirectoryStrategy) -> None:
+    def __init__(self, strategy: DirectoryStrategy, log_handlers: List[Any]) -> None:
         """Accept a strategy at construction time, this can be overridden later."""
-        self.logger = get_logger(__name__)
+        self.handlers = log_handlers
+        self.logger = getLogger(__name__)
+        for handler in log_handlers:
+            self.logger.addHandler(handler)
         self._strategy = strategy
 
     @property

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from concurrent import futures
 from os import PathLike
-from typing import List
+from typing import Any, List
 
 from structlog import get_logger
 
@@ -24,12 +24,17 @@ class DirectoryStrategy(ABC):
 
     def __init__(
         self,
+        log_handlers: List[Any] = [],
         force: bool = False,
         with_library: bool = False,
         with_module_utils: bool = False,
         with_filter_plugins: bool = False,
     ):
+        super().__init__()
+        self.handlers = log_handlers
         self.logger = get_logger(__name__)
+        for handler in self.handlers:
+            self.logger.addHandler(handler)
         self.force = force
         self.with_library = with_library
         self.with_module_utils = with_module_utils

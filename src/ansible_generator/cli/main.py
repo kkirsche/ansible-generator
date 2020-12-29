@@ -167,33 +167,34 @@ class AnsibleGeneratorCLI(CommandLineBuilder):
             )
 
         # define the types as the higher-level Handler type
-        handler1: Handler
-        handler2: Handler
+        self.handler1: Handler
+        self.handler2: Handler
         if not quiet or debug:
             # if we have not received -q / --quiet
             # or we have received --debug (overrides --quiet)
             # output to stdout for debug and info
-            handler1 = StreamHandler(stdout)
-            handler1.setLevel(DEBUG)
-            handler1.addFilter(InfoFilter())
+            self.handler1 = StreamHandler(stdout)
+            self.handler1.setLevel(DEBUG)
+            self.handler1.addFilter(InfoFilter())
             # stderr for warnings and above
-            handler2 = StreamHandler()
-            handler2.setLevel(WARNING)
+            self.handler2 = StreamHandler()
+            self.handler2.setLevel(WARNING)
         else:
             # disable all logging
-            handler1 = NullHandler()
-            handler2 = NullHandler()
+            self.handler1 = NullHandler()
+            self.handler2 = NullHandler()
 
         if json:
             # structlog uses event instead of message which JsonFormatter defaults to
-            handler1.setFormatter(jsonlogger.JsonFormatter("%(event)s"))
-            handler2.setFormatter(jsonlogger.JsonFormatter("%(event)s"))
+            self.handler1.setFormatter(jsonlogger.JsonFormatter("%(event)s"))
+            self.handler2.setFormatter(jsonlogger.JsonFormatter("%(event)s"))
         else:
-            handler1.setFormatter(console_formatter)
-            handler2.setFormatter(console_formatter)
-        self.logger: BoundLogger = get_logger(__name__)
-        self.logger.addHandler(handler1)
-        self.logger.addHandler(handler2)
+            self.handler1.setFormatter(console_formatter)
+            self.handler2.setFormatter(console_formatter)
+        self.logger: BoundLogger = get_logger()
+        self.logger.addHandler(self.handler1)
+        self.logger.addHandler(self.handler2)
+        self.handlers = [self.handler1, self.handler2]
         self.logger.setLevel(self.level_map[level])
         sentry_logging = LoggingIntegration(
             level=INFO, event_level=ERROR
@@ -353,13 +354,14 @@ class AnsibleGeneratorCLI(CommandLineBuilder):
             strategy = None  # TODO: Switch with strategy
         else:
             strategy = StandardDirectoryStructureStrategy(
+                log_handlers=self.handlers,
                 force=args.force,
                 with_library=args.with_library,
                 with_module_utils=args.with_module_utils,
                 with_filter_plugins=args.with_filter_plugins,
             )
         self.logger.debug("Building directory generator", strategy=strategy.name)
-        directory_generator = DirectoryGenerator(strategy)
+        directory_generator = DirectoryGenerator(strategy, self.handlers)
         for project in args.projects:
             directory_generator.apply(Path(project))
-        self.logger.debug("Building file/content generator")
+        self.logger.debug("Building file/content generator", strategy="tbd")
