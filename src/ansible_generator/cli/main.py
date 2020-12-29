@@ -262,6 +262,41 @@ class AnsibleGeneratorCLI(CommandLineBuilder):
             default=(getenv("NO_COLOR", False) or getenv("TERM", "") == "dumb"),
         )
 
+        generator_group = self.parser.add_argument_group("Generator")
+        generator_group.add_argument(
+            "-a",
+            "--alternate-layout",
+            action="store_true",
+            help="Create the alternate layout for Ansible.",
+        )
+        generator_group.add_argument(
+            "-i",
+            "--inventories",
+            nargs="+",
+            default=["production", "staging"],
+            type=str,
+            help="The inventory locations to generate",
+        )
+        generator_group.add_argument(
+            "-r",
+            "--roles",
+            nargs="+",
+            default=[],
+            type=str,
+            help="The roles to generate (via ansible-galaxy)",
+        )
+        generator_group.add_argument(
+            "-p",
+            "--projects",
+            nargs="+",
+            default=[],
+            type=str,
+            help=(
+                "The projects to create (must be an empty directory or a location"
+                + "where this user can create folders and files)"
+            ),
+        )
+
     def _ensure_parser(self) -> None:
         """_ensure_parser verifies the parser attribute exists.
 
@@ -298,9 +333,5 @@ class AnsibleGeneratorCLI(CommandLineBuilder):
             plain=args.plain,
         )
         self._ensure_logger()
-        self.logger.debug("Debug")
-        self.logger.info("Info")
-        self.logger.warning("Warning")
-        self.logger.error("Error")
-        self.logger.critical("Critical")
-        self.logger.fatal("fatal")
+        self.logger.debug("Building directory generator")
+        self.logger.debug("Building file/content generator")
