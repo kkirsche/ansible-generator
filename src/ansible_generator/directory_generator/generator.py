@@ -1,3 +1,8 @@
+from pathlib import Path
+from typing import List
+
+from structlog import get_logger
+
 from ansible_generator.directory_generator.strategy import DirectoryStrategy
 
 
@@ -6,6 +11,7 @@ class DirectoryGenerator:
 
     def __init__(self, strategy: DirectoryStrategy) -> None:
         """Accept a strategy at construction time, this can be overridden later."""
+        self.logger = get_logger(__name__)
         self._strategy = strategy
 
     @property
@@ -21,3 +27,11 @@ class DirectoryGenerator:
     def strategy(self, strategy: DirectoryStrategy) -> None:
         """Allow replacement of the strategy at runtime."""
         self._strategy = strategy
+
+    def apply_many(self, paths: List[Path]) -> None:
+        self.logger.debug("Applying strategy to paths", paths=paths)
+        self.strategy.apply_directory_structure_to_paths([Path(path) for path in paths])
+
+    def apply(self, path: Path) -> None:
+        self.logger.debug("Apply strategy to path", path=path)
+        self.strategy.apply_directory_structure_to_path(Path(path))

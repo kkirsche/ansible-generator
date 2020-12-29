@@ -15,6 +15,7 @@ class DirectoryStrategy(ABC):
     Strategies.
     """
 
+    name: str
     logger = None
     force: bool = False
     with_library: bool = False
@@ -28,7 +29,7 @@ class DirectoryStrategy(ABC):
         with_module_utils: bool = False,
         with_filter_plugins: bool = False,
     ):
-        self.logger = get_logger()
+        self.logger = get_logger(__name__)
         self.force = force
         self.with_library = with_library
         self.with_module_utils = with_module_utils
@@ -42,6 +43,7 @@ class DirectoryStrategy(ABC):
         Parameters:
             paths: A list of pathlist objects to apply the directory structure strategy to.
         """
+        self.logger.debug("applying directory structure asynchronously")
         with futures.ProcessPoolExecutor() as pool:
             pool.map(self.apply_directory_structure_to_path, list(set(paths)))
 

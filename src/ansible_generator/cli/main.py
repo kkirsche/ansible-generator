@@ -13,12 +13,12 @@ from logging import (
     INFO,
     WARNING,
     Handler,
-    Logger,
     NullHandler,
     StreamHandler,
     captureWarnings,
 )
 from os import getenv
+from pathlib import Path
 from sys import stdout
 from typing import Dict, Optional
 
@@ -27,13 +27,7 @@ from sentry_sdk import init as sentry_sdk_init
 from sentry_sdk.integrations.logging import LoggingIntegration
 from structlog import configure, get_logger
 from structlog.dev import ConsoleRenderer
-from structlog.processors import (
-    KeyValueRenderer,
-    StackInfoRenderer,
-    TimeStamper,
-    UnicodeDecoder,
-    format_exc_info,
-)
+from structlog.processors import TimeStamper, UnicodeDecoder, format_exc_info
 from structlog.stdlib import (
     BoundLogger,
     LoggerFactory,
@@ -42,15 +36,15 @@ from structlog.stdlib import (
     add_log_level,
     add_logger_name,
     filter_by_level,
-    render_to_log_kwargs,
 )
 
 from ansible_generator.cli.builder import CommandLineBuilder
 from ansible_generator.core import InfoFilter, version
-from ansible_generator.error import BuildOrderError
-
-EX_OK: int = 0  # cross-platform equivalent to os.EX_OK
-EX_CONFIG: int = 78  # cross-platform equivalent to os.EX_CONFIG
+from ansible_generator.directory_generator.generator import DirectoryGenerator
+from ansible_generator.directory_generator.standard_strategy import (
+    StandardDirectoryStructureStrategy,
+)
+from ansible_generator.error import BuildOrderError, ExitCode
 
 
 class AnsibleGeneratorCLI(CommandLineBuilder):
@@ -340,7 +334,7 @@ class AnsibleGeneratorCLI(CommandLineBuilder):
         args = self.parser.parse_args()
         if args.version:
             print(f"Version: {version}")
-            raise SystemExit(EX_OK)
+            raise SystemExit(ExitCode.EX_OK)
         if args.debug:
             args.level = "debug"
         if args.quiet or args.plain:
@@ -354,5 +348,18 @@ class AnsibleGeneratorCLI(CommandLineBuilder):
             plain=args.plain,
         )
         self._ensure_logger()
-        self.logger.debug("Building directory generator")
+        strategy = None
+        if args.alternate_layout:
+            strategy = None  # TODO: Switch with strategy
+        else:
+            strategy = StandardDirectoryStructureStrategy(
+                force=args.force,
+                with_library=args.with_library,
+                with_module_utils=args.with_module_utils,
+                with_filter_plugins=args.with_filter_plugins,
+            )
+        self.logger.debug("Building directory generator", strategy=strategy.name)
+        directory_generator = DirectoryGenerator(strategy)
+        for project in args.projects:
+            directory_generator.apply(Path(project))
         self.logger.debug("Building file/content generator")
