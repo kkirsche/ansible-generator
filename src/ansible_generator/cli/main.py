@@ -270,20 +270,33 @@ class AnsibleGeneratorCLI(CommandLineBuilder):
             help="Create the alternate layout for Ansible.",
         )
         generator_group.add_argument(
+            "-f",
+            "--force",
+            action="store_true",
+            help="Force directory and file generation.",
+        )
+        generator_group.add_argument(
+            "--with-library",
+            action="store_true",
+            help="Include the custom module library folder.",
+        )
+        generator_group.add_argument(
+            "--with-module-utils",
+            action="store_true",
+            help="Include the custom module_utils to support modules folder.",
+        )
+        generator_group.add_argument(
+            "--with-filter-plugins",
+            action="store_true",
+            help="Include the custom filter plugins folder.",
+        )
+        generator_group.add_argument(
             "-i",
             "--inventories",
             nargs="+",
             default=["production", "staging"],
             type=str,
             help="The inventory locations to generate",
-        )
-        generator_group.add_argument(
-            "-r",
-            "--roles",
-            nargs="+",
-            default=[],
-            type=str,
-            help="The roles to generate (via ansible-galaxy)",
         )
         generator_group.add_argument(
             "-p",
@@ -295,6 +308,14 @@ class AnsibleGeneratorCLI(CommandLineBuilder):
                 "The projects to create (must be an empty directory or a location"
                 + "where this user can create folders and files)"
             ),
+        )
+        generator_group.add_argument(
+            "-r",
+            "--roles",
+            nargs="+",
+            default=[],
+            type=str,
+            help="The roles to generate (via ansible-galaxy)",
         )
 
     def _ensure_parser(self) -> None:

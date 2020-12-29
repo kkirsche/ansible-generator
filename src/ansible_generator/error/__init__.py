@@ -5,5 +5,12 @@ errors.
 """
 from ansible_generator.error.base import AnsibleGeneratorError
 from ansible_generator.error.builder import BuildOrderError
+from ansible_generator.error.directory_generator import DirtyDirectoryError
+from ansible_generator.error.os_exit_codes import ExitCode
 
-__all__ = ["BuildOrderError", "AnsibleGeneratorError"]
+__all__ = [
+    "BuildOrderError",
+    "AnsibleGeneratorError",
+    "DirtyDirectoryError",
+    "ExitCode",
+]
