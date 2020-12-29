@@ -3,6 +3,7 @@ Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+src/ansible_generator/core/version.py
 
 # C extensions
 *.so
