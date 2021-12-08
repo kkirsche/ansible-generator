@@ -3,7 +3,7 @@
 ## Description
 Ansible Generator is a python program designed to simplify creating a new
 ansible playbook by creating the necessary directory structure for the user
-based on ansible's best practices, as outlined in [content organization best practices](http://docs.ansible.com/ansible/latest/playbooks_best_practices.html#content-organization).
+based on ansible's best practices, as outlined in [content organization best practices](https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html#content-organization).
 
 ## Installation
 
