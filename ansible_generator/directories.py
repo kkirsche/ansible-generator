@@ -1,7 +1,7 @@
 """directories is used to generate the necessary directory structures."""
 from logging import INFO, Logger
 from pathlib import Path
-from typing import Iterable, MutableSequence
+from typing import Iterable, MutableSequence, Set, Union
 
 from ansible_generator.log import setup_logger
 from ansible_generator.utilities import join_cwd_and_directory_path
@@ -48,7 +48,7 @@ def create_directory_layout(
     if projects:
         logger.debug('msg="projects was defined" projects="%s"', ", ".join(projects))
 
-        final_paths: set[str] = set()
+        final_paths: Set[str] = set()
         for project in projects:
             final_paths.update(
                 f"{project}/{required_path}" for required_path in required_paths
@@ -69,7 +69,7 @@ def create_directory_layout(
     return True
 
 
-def create_directory(logger: Logger, dir_path: Path | str) -> bool:
+def create_directory(logger: Logger, dir_path: Union[Path, str]) -> bool:
     """Recursively creates a directory path if does not exist.
 
     Args:
@@ -104,7 +104,7 @@ def create_directory(logger: Logger, dir_path: Path | str) -> bool:
 
 def get_alternate_inventories_directory_paths(
     logger: Logger, inventories: Iterable[str]
-) -> set[str]:
+) -> Set[str]:
     """
 
     Args:

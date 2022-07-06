@@ -1,5 +1,6 @@
 """files is used to generate the necessary file."""
 from logging import INFO, Logger
+from typing import Set, Union
 from os import utime
 from pathlib import Path
 from shlex import split
@@ -18,7 +19,7 @@ def create_file_layout(
     roles: MutableSequence[str],
     alternate_layout: bool = False,
     verbosity: int = INFO,
-):
+) -> bool:
     logger = setup_logger(name=__name__, log_level=verbosity)
     minimum_paths = ["site.yml"]
 
@@ -47,7 +48,7 @@ def create_file_layout(
     if projects:
         logger.debug('msg="projects was defined" projects="%s"', projects)
 
-        final_paths: set[str] = set()
+        final_paths: Set[str] = set()
         for project in projects:
             final_paths.update(
                 f"{project}/{required_path}" for required_path in required_paths
@@ -78,16 +79,18 @@ def create_file_layout(
 
 
 def get_alternate_inventories_file_paths(
-    logger: Logger, inventories: Iterable[Path | str]
-) -> set[str]:
+    logger: Logger, inventories: Iterable[Union[Path, str]]
+) -> Set[str]:
     logger.debug("building alternate inventory layout file paths")
-    inventory_paths: set[str] = {
+    inventory_paths: Set[str] = {
         f"inventories/{inventory}/hosts" for inventory in inventories
     }
     return inventory_paths
 
 
-def touch(logger: Logger, filename: Path, times: Tuple[int, int] | None = None) -> bool:
+def touch(
+    logger: Logger, filename: Path, times: Union[Tuple[int, int], None] = None
+) -> bool:
     try:
         logger.info("creating file %s", filename)
         with open(filename, "a") as f:

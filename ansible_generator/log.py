@@ -1,4 +1,5 @@
 """Create a logger instance """
+from typing import Union
 from logging import ERROR, INFO, Logger, basicConfig, getLogger
 
 from sentry_sdk import init
@@ -16,7 +17,7 @@ def configure_sentry() -> None:
     )
 
 
-def setup_logger(name: str | None = None, log_level: int = INFO) -> Logger:
+def setup_logger(name: Union[str, None] = None, log_level: int = INFO) -> Logger:
     log_format = "%(message)s"
     basicConfig(format=log_format)
     configure_sentry()

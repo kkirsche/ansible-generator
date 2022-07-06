@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """main defines the entrypoint into the application."""
 from logging import INFO, Logger
-from typing import MutableSequence
+from typing import MutableSequence, Union
 
 from ansible_generator.directories import create_directory_layout
 from ansible_generator.files import create_file_layout
@@ -19,12 +19,12 @@ class AnsibleGenerator:
 
     def __init__(
         self,
-        inventories: MutableSequence[str] | None = None,
-        projects: MutableSequence[str] | None = None,
-        roles: MutableSequence[str] | None = None,
+        inventories: Union[MutableSequence[str], None] = None,
+        projects: Union[MutableSequence[str], None] = None,
+        roles: Union[MutableSequence[str], None] = None,
         alternate_layout: bool = False,
         verbosity: int = INFO,
-    ):
+    ) -> None:
         if projects is None:
             projects = []
         if inventories is None:
@@ -48,7 +48,7 @@ class AnsibleGenerator:
         self.alternate_layout = alternate_layout
         self.roles = roles
 
-    def run(self):
+    def run(self) -> None:
         self.logger.debug('msg="beginning create directory"')
         if create_directory_layout(
             projects=self.projects,
