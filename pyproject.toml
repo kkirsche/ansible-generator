@@ -3,7 +3,7 @@ name = "ansible-generator"
 version = "3.0.0"
 description = "Ansible project generation tool"
 authors = ["Kevin Kirsche <kev.kirsche@gmail.com>"]
-license = "BSD-3-Clause"
+license = "BSD-4-Clause"
 readme = "README.md"
 
 repository = "https://github.com/kkirsche/ansible-generator"
