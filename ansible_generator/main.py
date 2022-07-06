@@ -1,28 +1,47 @@
 # -*- coding: utf-8 -*-
 """main defines the entrypoint into the application."""
-from ansible_generator.files import create_file_layout
+from logging import INFO, Logger
+from typing import MutableSequence
+
 from ansible_generator.directories import create_directory_layout
+from ansible_generator.files import create_file_layout
 from ansible_generator.log import setup_logger
-from logging import INFO
 
 
-class AnsibleGenerator(object):
+class AnsibleGenerator:
+    projects: MutableSequence[str]
+    inventories: MutableSequence[str]
+    roles: MutableSequence[str]
+
+    alternate_layout: bool
+    verbosity: int
+    logger: Logger
+
     def __init__(
         self,
-        projects=None,
-        inventories=["production", "staging"],
-        alternate_layout=False,
-        roles=[],
-        verbosity=INFO,
+        inventories: MutableSequence[str] | None = None,
+        projects: MutableSequence[str] | None = None,
+        roles: MutableSequence[str] | None = None,
+        alternate_layout: bool = False,
+        verbosity: int = INFO,
     ):
-        super(self.__class__, self).__init__()
+        if projects is None:
+            projects = []
+        if inventories is None:
+            inventories = ["production", "staging"]
+        if roles is None:
+            roles = []
+
         self.verbosity = verbosity
         self.logger = setup_logger(name=__name__, log_level=self.verbosity)
         self.logger.debug(
             (
-                'msg="initializing generator" inventories="{inv}" '
-                'alternate_layout="{alt}" projects="{proj}"'
-            ).format(inv=inventories, alt=alternate_layout, proj=", ".join(projects))
+                'msg="initializing generator" inventories="%s" '
+                + 'alternate_layout="%s" projects="%s"'
+            ),
+            ", ".join(inventories),
+            alternate_layout,
+            ", ".join(projects),
         )
         self.projects = projects
         self.inventories = inventories

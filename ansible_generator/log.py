@@ -1,24 +1,22 @@
-# -*- coding: utf-8 -*-
 """Create a logger instance """
-# third party packages
+from logging import ERROR, INFO, Logger, basicConfig, getLogger
+
 from sentry_sdk import init
 from sentry_sdk.integrations.logging import LoggingIntegration
 
-# python stdlib
-from pkg_resources import get_distribution
-from logging import ERROR, INFO, basicConfig, getLogger
+from ansible_generator.version import __version__
 
 
-def configure_sentry():
+def configure_sentry() -> None:
     sentry_logging = LoggingIntegration(level=INFO, event_level=ERROR)
     init(
         dsn="https://036bd28e074a4a4a99712dc05c9f768e@sentry.io/202195",
         integrations=[sentry_logging],
-        release=get_distribution("ansible-generator").version,
+        release=__version__,
     )
 
 
-def setup_logger(name, log_level=INFO):
+def setup_logger(name: str | None = None, log_level: int = INFO) -> Logger:
     log_format = "%(message)s"
     basicConfig(format=log_format)
     configure_sentry()

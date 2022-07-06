@@ -25,14 +25,14 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version="2.1.4",
+    version="3.0.0",
     description="Generate ansible directory structures",
     long_description=long_description,
     long_description_content_type="text/markdown",
     # The project's main homepage.
     url="https://github.com/kkirsche/ansible-generator",
     # Downloadable package
-    download_url="https://github.com/kkirsche/ansible-generator/archive/v2.1.3.tar.gz",
+    download_url="https://github.com/kkirsche/ansible-generator/archive/v3.0.0.tar.gz",
     # Author details
     author="Kevin Kirsche",
     author_email="kev.kirsche@gmail.com",
@@ -50,11 +50,10 @@ setup(
         "Topic :: Software Development :: Build Tools",
         # Pick your license as you wish (should match "license" above)
         "License :: OSI Approved :: BSD License",
-        # Specify the Python versions you support here. In particular, ensure
-        # that you indicate whether you support Python 2, Python 3 or both.
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ],
     # What does your project relate to?
     keywords="development ansible generator devops",
@@ -65,15 +64,23 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=["setuptools", "sentry-sdk", "ansible"],
-    python_requires=">=3.5",
+    install_requires=["sentry-sdk", "ansible"],
+    python_requires=">=3.8",
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
     # for example:
     # $ pip install -e .[dev,test]
     extras_require={
-        "dev": ["check-manifest", "black"],
-        "test": ["coverage", "pytest", "black", "flake8", "safety", "bandit"],
+        "dev": ["black", "isort", "mypy"],
+        "test": [
+            "coverage",
+            "pytest",
+            "isort",
+            "mypy",
+            "black",
+            "flake8",
+            "bandit",
+        ],
     },
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these

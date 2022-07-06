@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
-from ansible_generator.main import AnsibleGenerator
 from argparse import ArgumentParser
 from logging import DEBUG, INFO
-from pkg_resources import get_distribution
+
+from ansible_generator.main import AnsibleGenerator
+from ansible_generator.version import __version__
 
 
-def cli():
+def cli() -> None:
     try:
         parser = ArgumentParser(
             prog="ansible-generate",
@@ -33,18 +33,12 @@ def cli():
         parser.add_argument(
             "--version",
             action="version",
-            version="%(prog)s {v}".format(
-                v=get_distribution("ansible-generator").version
-            ),
+            version=f"%(prog)s {__version__}",
         )
 
         args = parser.parse_args()
 
-        if args.verbosity:
-            verbosity = DEBUG
-        else:
-            verbosity = INFO
-
+        verbosity = DEBUG if args.verbosity else INFO
         generator = AnsibleGenerator(
             inventories=args.inventories,
             alternate_layout=args.alternate_layout,
