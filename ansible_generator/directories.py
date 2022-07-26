@@ -97,6 +97,11 @@ def create_directory(logger: Logger, dir_path: Union[Path, str]) -> bool:
             ),
             dir_path,
         )
+    except NotADirectoryError:
+        logger.error(
+            "usage error: non-directory target. Ansible Generate should be "
+            + "directed to a directory"
+        )
     except Exception:
         logger.error("failed to create %s", dir_path, exc_info=True)
     return False
