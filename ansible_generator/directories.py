@@ -1,7 +1,9 @@
 """directories is used to generate the necessary directory structures."""
 from logging import INFO, Logger
 from pathlib import Path
-from typing import Iterable, MutableSequence, Set, Union
+from typing import Iterable, MutableSequence, Set
+
+from _typeshed import StrPath
 
 from ansible_generator.log import setup_logger
 from ansible_generator.utilities import join_cwd_and_directory_path
@@ -69,7 +71,7 @@ def create_directory_layout(
     return True
 
 
-def create_directory(logger: Logger, dir_path: Union[Path, str]) -> bool:
+def create_directory(logger: Logger, dir_path: StrPath) -> bool:
     """Recursively creates a directory path if does not exist.
 
     Args:

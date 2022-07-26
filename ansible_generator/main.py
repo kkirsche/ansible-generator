@@ -9,6 +9,10 @@ from ansible_generator.log import setup_logger
 
 
 class AnsibleGenerator:
+    """The AnsibleGenerator class is the primary orchestrator to create a
+    directory structure.
+    """
+
     projects: MutableSequence[str]
     inventories: MutableSequence[str]
     roles: MutableSequence[str]
@@ -25,6 +29,19 @@ class AnsibleGenerator:
         alternate_layout: bool = False,
         verbosity: int = INFO,
     ) -> None:
+        """Initialize an AnsibleGenerator instance
+
+        Args:
+            inventories (optional): The list of inventories to create, if desired.
+                Defaults to None.
+            projects (optional): The list of projects to create, if desired.
+                Defaults to None.
+            roles (optional): The list of roles to generate using ansible-galaxy, if
+                desired. Defaults to None.
+            alternate_layout (optional): Whether the alternative layout should be used.
+                Defaults to False.
+            verbosity (optional): The logging level to use. Defaults to INFO.
+        """
         if projects is None:
             projects = []
         if inventories is None:
@@ -49,6 +66,7 @@ class AnsibleGenerator:
         self.roles = roles
 
     def run(self) -> None:
+        """Run the ansible-generator behavior."""
         self.logger.debug('msg="beginning create directory"')
         if create_directory_layout(
             projects=self.projects,

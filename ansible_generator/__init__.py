@@ -6,6 +6,7 @@ from ansible_generator.version import __version__
 
 
 def cli() -> None:
+    """Run the CLI and application function via ArgumentParser."""
     try:
         parser = ArgumentParser(
             prog="ansible-generate",
