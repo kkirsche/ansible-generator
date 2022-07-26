@@ -25,7 +25,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version="3.0.0",
+    version="3.0.3",
     description="Generate ansible directory structures",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -72,13 +72,18 @@ setup(
     extras_require={
         "dev": ["black", "isort", "mypy"],
         "test": [
-            "coverage",
-            "pytest",
-            "isort",
-            "mypy",
-            "black",
-            "flake8",
             "bandit",
+            "black[colorama, uvloop]",
+            "codespell",
+            "example-isort-formatting-plugin",
+            "example-isort-sorting-plugin",
+            "flake8",
+            "flake8-bugbear",
+            "interrogate",
+            "isort[colors]",
+            "mypy",
+            "setuptools",
+            "types-setuptools",
         ],
     },
     # If there are data files included in your packages that need to be
