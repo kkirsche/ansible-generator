@@ -70,7 +70,20 @@ setup(
     # for example:
     # $ pip install -e .[dev,test]
     extras_require={
-        "dev": ["black", "isort", "mypy"],
+        "dev": [
+            "bandit",
+            "black[colorama, uvloop]",
+            "codespell",
+            "example-isort-formatting-plugin",
+            "example-isort-sorting-plugin",
+            "flake8",
+            "flake8-bugbear",
+            "interrogate",
+            "isort[colors]",
+            "mypy",
+            "setuptools",
+            "types-setuptools",
+        ],
         "test": [
             "bandit",
             "black[colorama, uvloop]",
