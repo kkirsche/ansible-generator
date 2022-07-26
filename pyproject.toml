@@ -9,24 +9,30 @@ readme = "README.md"
 repository = "https://github.com/kkirsche/ansible-generator"
 keywords = ["development", "ansible", "generator"]
 classifiers = [
-  "Intended Audience :: Developers",
-  "Topic :: Software Development :: Build Tools",
-  "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "Development Status :: 5 - Production/Stable",
 ]
 
 
 [tool.poetry.dependencies]
 python = "^3.8"
-sentry-sdk = "^1.6.0"
 ansible = "*"
+sentry-sdk = "^1.8.0"
 
 [tool.poetry.dev-dependencies]
+bandit = "^1.7.4"
 black = { extras = ["colorama", "uvloop"], version = "^22.6.0" }
-isort = { extras = ["colors"], version = "^5.10.1" }
-mypy = "^0.961"
-flake8 = "^4.0.1"
-example-isort-sorting-plugin = "^0.0.3"
+codespell = "^2.1.0"
 example-isort-formatting-plugin = "^0.0.4"
+example-isort-sorting-plugin = "^0.0.3"
+flake8 = "^4.0.1"
+flake8-bugbear = "^22.7.1"
+interrogate = "^1.5.0"
+isort = { extras = ["colors"], version = "^5.10.1" }
+mypy = "^0.971"
+setuptools = "^63.2.0"
+types-setuptools = "^63.2.1"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
@@ -49,6 +55,24 @@ python_version = "3.8"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
+
+[tool.interrogate]
+ignore-init-method = false
+ignore-init-module = false
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = true
+ignore-nested-functions = false
+ignore-nested-classes = false
+ignore-setters = false
+fail-under = 95
+exclude = ["tests"]
+verbose = 1
+quiet = false
+color = true
+
 
 [[tool.mypy.overrides]]
 ignore_missing_imports = false
