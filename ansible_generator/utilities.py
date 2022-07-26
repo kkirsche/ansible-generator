@@ -1,11 +1,12 @@
 """utilities are functions that need to be used by multiple files."""
 from pathlib import Path
-
-from _typeshed import StrPath
+from os import PathLike
 
 from ansible_generator.log import setup_logger
 
 logger = setup_logger(name=__name__)
+
+StrPath = str | PathLike[str]
 
 
 def join_cwd_and_directory_path(dir_path: StrPath) -> Path:
