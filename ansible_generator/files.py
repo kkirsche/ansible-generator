@@ -1,6 +1,6 @@
 """files is used to generate the necessary file."""
 from logging import INFO, Logger
-from os import utime, PathLike
+from os import PathLike, utime
 from pathlib import Path
 from shlex import split
 from shutil import which
@@ -8,11 +8,10 @@ from subprocess import Popen
 from tempfile import TemporaryFile
 from typing import Iterable, MutableSequence, Set, Tuple, Union
 
-
 from ansible_generator.log import setup_logger
 from ansible_generator.utilities import join_cwd_and_directory_path
 
-StrOrBytesPath = str | bytes | PathLike[str] | PathLike[bytes]
+StrOrBytesPath = Union[str, bytes, PathLike[str], PathLike[bytes]]
 
 
 def create_file_layout(

@@ -21,10 +21,10 @@ ansible = "*"
 sentry-sdk = "^1.8.0"
 
 [tool.pytest.ini_options]
-minversion = "7.0"
 addopts = "-ra --strict-markers --strict-config"
-testpaths = ["tests"]
 markers = ["destructive", "mutative"]
+minversion = "7.0"
+testpaths = ["tests"]
 
 
 [tool.poetry.dev-dependencies]
@@ -55,32 +55,33 @@ remove_redundant_aliases = true
 sort_order = "natural_plus"
 
 [tool.mypy]
-exclude = ""               # regular expression
+exclude = ""                   # regular expression
 follow_imports = "normal"
 plugins = []
 python_version = "3.8"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
-
-[tool.interrogate]
-ignore-init-method = false
-ignore-init-module = false
-ignore-magic = false
-ignore-semiprivate = false
-ignore-private = false
-ignore-property-decorators = false
-ignore-module = true
-ignore-nested-functions = false
-ignore-nested-classes = false
-ignore-setters = false
-fail-under = 95
-exclude = ["tests"]
-verbose = 1
-quiet = false
-color = true
-
+warn_unreachable = true
+disallow_any_unimported = true
 
 [[tool.mypy.overrides]]
 ignore_missing_imports = false
 module = []
+
+[tool.interrogate]
+color = true
+exclude = ["tests"]
+fail-under = 95
+ignore-init-method = false
+ignore-init-module = false
+ignore-magic = false
+ignore-module = true
+ignore-nested-classes = false
+ignore-nested-functions = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-semiprivate = false
+ignore-setters = false
+quiet = false
+verbose = 1
