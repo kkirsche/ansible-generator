@@ -102,7 +102,7 @@ def create_directory(logger: Logger, dir_path: StrPath) -> bool:
         )
     except NotADirectoryError:
         logger.error(
-            "usage error: non-directory target. Ansible Generate should be "
+            "UsageError: non-directory target. Ansible Generate should be "
             + "directed to a directory"
         )
     except Exception:
