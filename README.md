@@ -1,34 +1,26 @@
 # Ansible Generator
 
 ## Description
+
 Ansible Generator is a python program designed to simplify creating a new
 ansible playbook by creating the necessary directory structure for the user
 based on ansible's best practices, as outlined in [content organization best practices](https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html#content-organization).
 
 ## Installation
 
+### PIP (recommended)
 
-### PIP
 ```
 pip install -U ansible-generator
 ```
 
 ### Source
 
-#### Without Make
 ```
 git clone https://github.com/kkirsche/ansible-generator.git
 cd ansible-generator
-pip install -U wheel
-python setup.py bdist_wheel --universal
-pip install -U dist/*.whl
-```
-#### With Make
-```
-git clone https://github.com/kkirsche/ansible-generator.git
-cd ansible-generator
-make wheel
-pip install -U dist/*.whl
+curl -sSL https://install.python-poetry.org | python3 -
+poetry build
 ```
 
 ## Usage
@@ -54,11 +46,11 @@ optional arguments:
 
 #### Defaults
 
-* `alternate-layout` --- `False`
-* `verbose` --- `False`
-* `inventories` --- `['production', 'staging']`
-* `roles` --- `[]`
-* `projects` --- `[]`
+- `alternate-layout` --- `False`
+- `verbose` --- `False`
+- `inventories` --- `['production', 'staging']`
+- `roles` --- `[]`
+- `projects` --- `[]`
 
 ### Example
 
@@ -87,8 +79,10 @@ ansible-generate -i production staging lab
 ```
 
 #### Roles
+
 This portion of the tool relies on Ansible's `ansible-galaxy` command line
 application
+
 ```
 ansible-generate -r role1 role2
 ```
