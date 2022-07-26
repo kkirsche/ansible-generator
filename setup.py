@@ -84,20 +84,6 @@ setup(
             "setuptools",
             "types-setuptools",
         ],
-        "test": [
-            "bandit",
-            "black[colorama, uvloop]",
-            "codespell",
-            "example-isort-formatting-plugin",
-            "example-isort-sorting-plugin",
-            "flake8",
-            "flake8-bugbear",
-            "interrogate",
-            "isort[colors]",
-            "mypy",
-            "setuptools",
-            "types-setuptools",
-        ],
     },
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these
