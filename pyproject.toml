@@ -20,6 +20,13 @@ python = "^3.8"
 ansible = "*"
 sentry-sdk = "^1.8.0"
 
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra --strict-markers --strict-config"
+testpaths = ["tests"]
+markers = ["destructive", "mutative"]
+
+
 [tool.poetry.dev-dependencies]
 bandit = "^1.7.4"
 black = { extras = ["colorama", "uvloop"], version = "^22.6.0" }
