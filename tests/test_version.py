@@ -6,4 +6,4 @@ def test_version_is_str() -> None:
 
 
 def test_distribution_name_is_ansible_generate() -> None:
-    assert __distribution_name__ == "ansible-generate"
+    assert __distribution_name__ == "ansible-generator"
