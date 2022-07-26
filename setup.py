@@ -9,10 +9,10 @@ http://docs.ansible.com/ansible/latest/playbooks_best_practices.html#directory-l
 http://docs.ansible.com/ansible/latest/playbooks_best_practices.html#alternative-directory-layout
 """
 
-# Always prefer setuptools over distutils
-from setuptools import setup, find_packages
 from os import path
 
+# Always prefer setuptools over distutils
+from setuptools import find_packages, setup
 
 here = path.abspath(path.dirname(__file__))
 
