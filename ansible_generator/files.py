@@ -4,9 +4,9 @@ from os import PathLike, utime
 from pathlib import Path
 from shlex import split
 from shutil import which
-from subprocess import Popen
+from subprocess import Popen  # nosec
 from tempfile import TemporaryFile
-from typing import Iterable, MutableSequence, Set, Tuple, Union
+from typing import Collection, Iterable, MutableSequence, Set, Tuple, Union
 
 from ansible_generator.log import setup_logger
 from ansible_generator.utilities import join_cwd_and_directory_path
@@ -15,7 +15,7 @@ StrOrBytesPath = Union[str, bytes, PathLike[str], PathLike[bytes]]
 
 
 def create_file_layout(
-    projects: Iterable[str],
+    projects: Collection[str],
     inventories: MutableSequence[str],
     roles: MutableSequence[str],
     alternate_layout: bool = False,
@@ -79,11 +79,21 @@ def create_file_layout(
         if not success:
             return False
 
-    for project in projects:
+    if len(projects) > 0:
+        for project in projects:
+            for role in roles:
+                success = create_role(
+                    rolename=role,
+                    directory=f"{project}/roles",
+                    logger=logger,
+                )
+                if not success:
+                    return False
+    else:
         for role in roles:
             success = create_role(
                 rolename=role,
-                directory=f"{project}/roles",
+                directory=f"{Path.cwd().resolve()}/roles",
                 logger=logger,
             )
             if not success:
