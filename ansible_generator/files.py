@@ -114,10 +114,7 @@ def get_alternate_inventories_file_paths(
         Set[str]: The set of unique inventory paths to create.
     """
     logger.debug("building alternate inventory layout file paths")
-    inventory_paths: Set[str] = {
-        f"inventories/{inventory}/hosts" for inventory in inventories
-    }
-    return inventory_paths
+    return {f"inventories/{inventory}/hosts" for inventory in inventories}
 
 
 def touch(
