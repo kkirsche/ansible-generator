@@ -25,7 +25,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version="3.1.0",
+    version="3.1.1",
     description="Generate ansible directory structures",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -78,9 +78,11 @@ setup(
             "example-isort-sorting-plugin",
             "flake8",
             "flake8-bugbear",
+            "flake8-pyi",
             "interrogate",
             "isort[colors]",
             "mypy",
+            "pytest",
             "setuptools",
             "types-setuptools",
         ],
