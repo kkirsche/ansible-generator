@@ -1,7 +1,7 @@
 """directories is used to generate the necessary directory structures."""
 from logging import INFO, Logger
 from pathlib import Path
-from typing import Iterable, MutableSequence, Set, TYPE_CHECKING
+from typing import TYPE_CHECKING, Iterable, MutableSequence, Set
 
 from ansible_generator.log import setup_logger
 from ansible_generator.utilities import join_cwd_and_directory_path
