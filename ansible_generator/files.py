@@ -1,17 +1,26 @@
 """files is used to generate the necessary file."""
 from logging import INFO, Logger
-from os import PathLike, utime
+from os import utime
 from pathlib import Path
 from shlex import split
 from shutil import which
 from subprocess import Popen  # nosec
 from tempfile import TemporaryFile
-from typing import Collection, Iterable, MutableSequence, Set, Tuple, Union
+from typing import (
+    TYPE_CHECKING,
+    Collection,
+    Iterable,
+    MutableSequence,
+    Set,
+    Tuple,
+    Union,
+)
 
 from ansible_generator.log import setup_logger
 from ansible_generator.utilities import join_cwd_and_directory_path
 
-StrOrBytesPath = Union[str, bytes, PathLike[str], PathLike[bytes]]
+if TYPE_CHECKING:
+    from _typeshed import StrOrBytesPath
 
 
 def create_file_layout(

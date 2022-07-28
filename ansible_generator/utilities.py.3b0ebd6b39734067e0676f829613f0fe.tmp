@@ -1,6 +1,6 @@
 """utilities are functions that need to be used by multiple files."""
 from pathlib import Path
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
 
 from ansible_generator.log import setup_logger
 
