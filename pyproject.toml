@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ansible-generator"
-version = "3.1.0"
+version = "3.1.1"
 description = "Ansible project generation tool"
 authors = ["Kevin Kirsche <kev.kirsche@gmail.com>"]
 license = "BSD-4-Clause"
@@ -18,7 +18,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.8"
 ansible = "*"
-sentry-sdk = "^1.8.0"
+sentry-sdk = "^1.9.0"
 
 [tool.pytest.ini_options]
 addopts = "-ra --strict-markers --strict-config"
