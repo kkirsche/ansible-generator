@@ -131,7 +131,7 @@ def get_alternate_inventories_file_paths(
 
 def touch(
     logger: Logger,
-    filename: Union[StrOrBytesPath, int],
+    filename: Union["StrOrBytesPath", int],
     times: Union[Tuple[int, int], None] = None,
 ) -> bool:
     """Touch the file at the location provided.
@@ -158,7 +158,7 @@ def touch(
 
 
 def create_role(
-    rolename: str, directory: Union[StrOrBytesPath, None], logger: Logger
+    rolename: str, directory: Union["StrOrBytesPath", None], logger: Logger
 ) -> bool:
     """Create a role using ansible-galaxy.
 

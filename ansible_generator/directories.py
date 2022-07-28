@@ -72,7 +72,7 @@ def create_directory_layout(
     return True
 
 
-def create_directory(logger: Logger, dir_path: StrPath) -> bool:
+def create_directory(logger: Logger, dir_path: "StrPath") -> bool:
     """Recursively creates a directory path if does not exist.
 
     Args:

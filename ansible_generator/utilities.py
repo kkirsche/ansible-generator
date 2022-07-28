@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 logger = setup_logger(name=__name__)
 
 
-def join_cwd_and_directory_path(dir_path: StrPath) -> Path:
+def join_cwd_and_directory_path(dir_path: "StrPath") -> Path:
     """Join the current working directory with the provided path.
 
     Args:
