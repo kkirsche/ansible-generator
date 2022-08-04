@@ -12,7 +12,6 @@ def cli() -> None:
             prog="ansible-generate",
             description="Generate an ansible playbook directory structure",
         )
-
         parser.add_argument(
             "-a", "--alternate-layout", action="store_true", dest="alternate_layout"
         )
